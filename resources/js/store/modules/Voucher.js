@@ -26,6 +26,22 @@ export default {
       } catch (err) {
         return Promise.reject(err)
       }
+    },
+    async updateVoucher(_store, voucher) {
+      try {
+        await Voucher.updateVoucher(voucher)
+      } catch (err) {
+        return Promise.reject(err)
+      }
+    },
+    async checkVoucher({commit}, voucher) {
+      try {
+        let data = await Voucher.checkVoucher(voucher)
+        commit('setVoucher', data.voucher_code)
+        return Promise.resolve()
+      } catch (err) {
+        return Promise.reject(err)
+      }
     }
   }
 }

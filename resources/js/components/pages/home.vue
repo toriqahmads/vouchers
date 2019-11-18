@@ -30,9 +30,12 @@
       }
     },
     computed: {
-      ...mapGetters('Voucher', [
-        'voucher'
-      ]),
+      ...mapGetters('Voucher', {
+        vc: 'voucher'
+      }),
+      voucher() {
+        return `http://192.168.2.118:8000/rendeem/${this.vc}`
+      },
       width() {
         let winWidth = $(window).width()
         return winWidth - 50
