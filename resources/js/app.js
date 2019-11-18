@@ -4,19 +4,16 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-import './bootstrap';
+import Vue from 'vue'
 
-import Vue from 'vue';
-import Vuetify from 'vuetify';
-import Routes from '@/js/routes.js';
-import App from '@/js/views/App';
+import store from '@/js/store'
+import router from '@/js/routers'
 
-const vuetify = new Vuetify();
-Vue.use(Vuetify);
+import App from '@/js/components/App'
 
-const app = new Vue({
-    el: '#app',
-    router: Routes,
-    render: h => h(App),
-    vuetify
-});
+new Vue({
+    store,
+    router,
+    components: {App},
+    template: '<App/>'
+}).$mount('#app')
