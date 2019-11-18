@@ -12,7 +12,7 @@ class VoucherController extends Controller
 {
     public function generateVoucher(){
     	try{
-    		$gift = Gift::all()->random()->first();
+    		$gift = Gift::all()->random(1)->first();
 
 	    	$data = [
                 'voucher_code' => VoucherCode::generateVoucher(),
