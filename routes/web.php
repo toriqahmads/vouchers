@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/{any}', 'SinglePageController@index')->where('any', '.*');
-
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+
+Route::get('/{any}', 'SinglePageController@index')->where('any', '.*');
