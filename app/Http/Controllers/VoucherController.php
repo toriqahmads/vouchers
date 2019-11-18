@@ -45,6 +45,12 @@ class VoucherController extends Controller
 
 	    	$voucher = Voucher::where('voucher_code', $voucher_code)->firstOrFail();
 
+            if($voucher->redeemed == 'Y'){
+                return response()->json(array('success' => false,
+                    'message' => 'voucher already redeemed'),
+                200);
+            }
+
 	    	$voucher->redeemed = 'Y';
 	    	$voucher->save();
 
