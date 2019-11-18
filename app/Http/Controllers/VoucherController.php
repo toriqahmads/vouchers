@@ -59,4 +59,28 @@ class VoucherController extends Controller
     		500);
     	}
     }
+
+    public function findByCode(VoucherRequest $request){
+        try{
+            $voucher_code = $request->voucher_code;
+
+            $voucher = Voucher::where('voucher_code', $voucher_code)->firstOrFail();
+
+            if(!$voucher){
+                return response()->json(array('success' => false,
+                'message' => 'voucher ' + $voucher_code + ' not found'),
+                404);
+            }
+
+            return response()->json(array('success' => true,
+                'message' => 'voucher found',
+                'data' => $voucher),
+            200);
+        }
+        catch(Exception $error){
+            return response()->json(array('success' => false, 
+                'message' => 'something went wrong'), 
+            500);
+        }
+    }
 }
