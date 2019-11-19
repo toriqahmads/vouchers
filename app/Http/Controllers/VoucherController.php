@@ -43,7 +43,7 @@ class VoucherController extends Controller
     	try{
     		$voucher_code = $request->voucher_code;
 
-	    	$voucher = Voucher::where('voucher_code', $voucher_code)->gifts()->firstOrFail();
+	    	$voucher = Voucher::where('voucher_code', $voucher_code)->with('gifts')->firstOrFail();
 
             if($voucher->redeemed == 'Y'){
                 return response()->json(array('success' => false,
@@ -70,15 +70,13 @@ class VoucherController extends Controller
         try{
             $voucher_code = $request->voucher_code;
 
-            $voucher = Voucher::where('voucher_code', $voucher_code)->find();
+            $voucher = Voucher::where('voucher_code', $voucher_code)->with('gifts')->firstOrFail();
 
             if(!$voucher){
                 return response()->json(array('success' => false,
                 'message' => 'voucher ' + $voucher_code + ' not found'),
                 404);
             }
-
-            die(dd($voucher));
 
             return response()->json(array('success' => true,
                 'message' => 'voucher found',

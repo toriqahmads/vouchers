@@ -17,6 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('vouchers/{voucher_code}', 'VoucherController@findByCode');
 Route::post('vouchers', 'VoucherController@generateVoucher');
 Route::put('vouchers', 'VoucherController@redeem');
-Route::get('vouchers/{voucher_code}', 'VoucherController@findByCode');
