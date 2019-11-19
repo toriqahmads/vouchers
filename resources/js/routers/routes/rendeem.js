@@ -1,6 +1,6 @@
 import rendeem from '@/js/components/pages/rendeem'
 
 export default {
-  path: '/rendeem/:id',
+  path: '/rendeem',
   component: rendeem
 }

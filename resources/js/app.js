@@ -6,10 +6,15 @@
 
 import Vue from 'vue'
 
+import VueQrcodeReader from 'vue-qrcode-reader'
+
 import store from '@/js/store'
 import router from '@/js/routers'
 
 import App from '@/js/components/App'
+
+
+Vue.use(VueQrcodeReader)
 
 new Vue({
     store,
