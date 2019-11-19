@@ -34,7 +34,7 @@
         vc: 'voucher'
       }),
       voucher() {
-        return `http://192.168.2.118:8000/rendeem/${this.vc}`
+        return this.vc
       },
       width() {
         let winWidth = $(window).width()
