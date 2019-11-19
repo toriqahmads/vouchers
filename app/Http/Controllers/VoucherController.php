@@ -70,7 +70,7 @@ class VoucherController extends Controller
         try{
             $voucher_code = $request->voucher_code;
 
-            $voucher = Voucher::where('voucher_code', $voucher_code)->with('gifts')->first();
+            $voucher = Voucher::where('voucher_code', $voucher_code)->find();
 
             if(!$voucher){
                 return response()->json(array('success' => false,
