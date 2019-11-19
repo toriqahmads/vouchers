@@ -1,5 +1,9 @@
 <template>
-  <qrcode-stream @decode="onDecode"></qrcode-stream>
+  <div class="row">
+    <div class="col-12">
+      <qrcode-stream @decode="onDecode"></qrcode-stream>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -14,22 +18,22 @@
           let data = await this.$store.dispatch('Voucher/updateVoucher')
           if (!data.success) {
             return this.$router.push({
-              path: '/voucher/failed',
-              params: {
+              path: '/activation/failed',
+              query: {
                 kode: voucher
               }
             })
           }
           return this.$router.push({
-            path: '/voucher/success',
-            params: {
+            path: '/activation/success',
+            query: {
               kode: voucher
             }
           })
         } catch (err) {
           return this.$router.push({
-            path: '/voucher/failed',
-            params: {
+            path: '/activation/failed',
+            query: {
               kode: 'server'
             }
           })

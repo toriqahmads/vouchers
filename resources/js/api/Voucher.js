@@ -1,9 +1,11 @@
 import Err from '@/js/tools/Err'
 
 export default {
-  async newVoucher() {
+  async newVoucher(no_hp) {
     try {
-      let {data: {data}} = await axios.post('/api/vouchers')
+      let {data: {data}} = await axios.post('/api/vouchers', {
+        no_hp
+      })
       return data
     } catch (err) {
       return Promise.reject(

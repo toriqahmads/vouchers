@@ -1,9 +1,9 @@
 export default {
   parsing(opts = {}, err = new Error()) {
-    let redata = opts
+    let redata = {}
     redata.name = 'Error'
-    if (err.response) {
-      let {data} = err.response
+    if (opts.response) {
+      let {data} = opts.response
       redata = {
         ...redata,
         message: data.message
@@ -11,7 +11,7 @@ export default {
     } else {
       redata = {
         ...redata,
-        message: err.message,
+        message: opts.message,
       }
     }
     _.extend(err, redata)

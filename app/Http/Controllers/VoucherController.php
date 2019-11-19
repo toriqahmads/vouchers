@@ -84,7 +84,6 @@ class VoucherController extends Controller
 
     public function findByCode(VoucherRequest $request){
         try{
-            die(dd($request));
             $voucher_code = $request->voucher_code;
 
             $voucher = Voucher::where('voucher_code', $voucher_code)->with('gifts')->firstOrFail();
