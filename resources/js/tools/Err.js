@@ -11,7 +11,7 @@ export default {
     } else {
       redata = {
         ...redata,
-        message: err.message
+        message: err.message,
       }
     }
     _.extend(err, redata)

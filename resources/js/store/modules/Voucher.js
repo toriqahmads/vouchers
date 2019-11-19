@@ -38,7 +38,7 @@ export default {
       try {
         let data = await Voucher.checkVoucher(voucher)
         commit('setVoucher', data.voucher_code)
-        return Promise.resolve()
+        return data
       } catch (err) {
         return Promise.reject(err)
       }

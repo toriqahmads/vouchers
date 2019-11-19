@@ -1,10 +1,5 @@
 <template>
-  <div class="container-fluid">
-    <div v-if="loading" class="row"></div>
-    <div v-else class="d-flex align-items-center justify-content-center" style="min-height: 100vh">
-      <vue-qrcode :value="voucher" :options="{ width: width }" />
-    </div>
-  </div>
+  <vue-qrcode :value="voucher" :options="{ width: width }" />
 </template>
 
 <script>
