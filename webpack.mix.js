@@ -12,14 +12,20 @@ const mix = require('laravel-mix');
  */
 
 mix.webpackConfig({
-	resolve: {
-		extensions: ['.js', '.vue'],
-		alias: {
-			'@': __dirname + '/resources'
-		}
-	}
+  resolve: {
+    extensions: ['.js', '.vue'],
+    alias: {
+      '@': __dirname + '/resources'
+    }
+  }
 });
 
 mix.js('resources/js/bootstrap.js', 'public/js')
-    .js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+  .js('resources/js/app.js', 'public/js')
+  .sass('resources/sass/app.scss', 'public/css')
+	.copy([
+    'resources/images/**/*.jpg',
+    'resources/images/**/*.png',
+    'resources/images/**/*.ico'
+  ], 'public/images'
+);

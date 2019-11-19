@@ -1,0 +1,12 @@
+.rendeem-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: {
+    top: 25px;
+    bottom: 25px;
+  }
+  > img {
+    width: 200px;
+  }
+}

@@ -3710,10 +3710,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      loading: true
+      loading: true,
+      err: false,
+      err_msg: ''
     };
   },
   computed: {
@@ -3722,34 +3745,65 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    updateVoucher: function updateVoucher() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function updateVoucher$(_context) {
+    checkandUpdateVoucher: function checkandUpdateVoucher() {
+      var _ref, success, message;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function checkandUpdateVoucher$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(this.$store.dispatch('Voucher', this.kode));
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(this.$store.dispatch('Voucher/checkVoucher', this.kode));
 
             case 3:
-              _context.next = 8;
-              break;
+              _context.next = 5;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(this.$store.dispatch('Voucher/updateVoucher'));
 
             case 5:
-              _context.prev = 5;
-              _context.t0 = _context["catch"](0);
-              console.log(_context.t0);
+              _ref = _context.sent;
+              success = _ref.success;
+              message = _ref.message;
 
-            case 8:
+              if (!success) {
+                this.err = true;
+                this.err_msg = "<span class=\"badge badge-danger\">".concat(this.kode, "</span> Sudah Dipakai");
+              }
+
+              _context.next = 15;
+              break;
+
+            case 11:
+              _context.prev = 11;
+              _context.t0 = _context["catch"](0);
+              this.err = true;
+              this.err_msg = 'Kesalahan Dari Server';
+
+            case 15:
             case "end":
               return _context.stop();
           }
         }
-      }, null, this, [[0, 5]]);
+      }, null, this, [[0, 11]]);
     }
   },
   mounted: function mounted() {
-    this.loading = false;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function mounted$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(this.checkandUpdateVoucher());
+
+          case 2:
+            this.loading = false;
+
+          case 3:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, null, this);
   }
 });
 
@@ -5047,12 +5101,53 @@ var render = function() {
   return _c("div", { staticClass: "container-fluid" }, [
     _vm.loading
       ? _c("div", { staticClass: "row" })
-      : _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-12" })
-        ])
+      : _c(
+          "div",
+          { staticClass: "row" },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm.err
+              ? [
+                  _c("div", { staticClass: "col-12" }, [
+                    _c("div", { staticClass: "rendeem-body text-center" }, [
+                      _c("h3", { domProps: { innerHTML: _vm._s(_vm.err_msg) } })
+                    ])
+                  ])
+                ]
+              : [
+                  _c("div", { staticClass: "col-12" }, [
+                    _c("div", { staticClass: "rendeem-body text-center" }, [
+                      _c("h3", [
+                        _c("span", { staticClass: "badge badge-success" }, [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(_vm.kode) +
+                              "\n            "
+                          )
+                        ]),
+                        _vm._v("\n            Telah Diaktifkan\n          ")
+                      ])
+                    ])
+                  ])
+                ]
+          ],
+          2
+        )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-12" }, [
+      _c("div", { staticClass: "rendeem-logo" }, [
+        _c("img", { attrs: { src: "/images/logo.png", alt: "logo" } })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -21171,6 +21266,8 @@ __webpack_require__.r(__webpack_exports__);
     }, null, null, [[0, 8]]);
   },
   updateVoucher: function updateVoucher(voucher) {
+    var _ref2, _ref2$data, success, message;
+
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function updateVoucher$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -21178,26 +21275,33 @@ __webpack_require__.r(__webpack_exports__);
             _context2.prev = 0;
             _context2.next = 3;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.put('/api/vouchers', {
-              voucher: voucher
+              voucher_code: voucher
             }));
 
           case 3:
-            return _context2.abrupt("return", Promise.resolve());
+            _ref2 = _context2.sent;
+            _ref2$data = _ref2.data;
+            success = _ref2$data.success;
+            message = _ref2$data.message;
+            return _context2.abrupt("return", {
+              success: success,
+              message: message
+            });
 
-          case 6:
-            _context2.prev = 6;
+          case 10:
+            _context2.prev = 10;
             _context2.t0 = _context2["catch"](0);
             return _context2.abrupt("return", Promise.reject(_js_tools_Err__WEBPACK_IMPORTED_MODULE_1__["default"].parsing(_context2.t0)));
 
-          case 9:
+          case 13:
           case "end":
             return _context2.stop();
         }
       }
-    }, null, null, [[0, 6]]);
+    }, null, null, [[0, 10]]);
   },
   checkVoucher: function checkVoucher(voucher) {
-    var _ref2, data;
+    var _ref3, data;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function checkVoucher$(_context3) {
       while (1) {
@@ -21205,11 +21309,15 @@ __webpack_require__.r(__webpack_exports__);
           case 0:
             _context3.prev = 0;
             _context3.next = 3;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.get("/api/vouchers/".concat(voucher)));
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.get("/api/vouchers/".concat(voucher), {
+              params: {
+                voucher_code: voucher
+              }
+            }));
 
           case 3:
-            _ref2 = _context3.sent;
-            data = _ref2.data.data;
+            _ref3 = _context3.sent;
+            data = _ref3.data.data;
             return _context3.abrupt("return", data);
 
           case 8:
@@ -21703,38 +21811,39 @@ __webpack_require__.r(__webpack_exports__);
         }
       }, null, null, [[1, 9]]);
     },
-    updateVoucher: function updateVoucher(_store, voucher) {
+    updateVoucher: function updateVoucher(_ref2) {
+      var getters;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function updateVoucher$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.prev = 0;
-              _context2.next = 3;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(_js_api_Voucher__WEBPACK_IMPORTED_MODULE_1__["default"].updateVoucher(voucher));
+              getters = _ref2.getters;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(_js_api_Voucher__WEBPACK_IMPORTED_MODULE_1__["default"].updateVoucher(getters.voucher));
 
-            case 3:
-              _context2.next = 8;
-              break;
+            case 4:
+              return _context2.abrupt("return", _context2.sent);
 
-            case 5:
-              _context2.prev = 5;
-              _context2.t0 = _context2["catch"](0);
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](1);
               return _context2.abrupt("return", Promise.reject(_context2.t0));
 
-            case 8:
+            case 10:
             case "end":
               return _context2.stop();
           }
         }
-      }, null, null, [[0, 5]]);
+      }, null, null, [[1, 7]]);
     },
-    checkVoucher: function checkVoucher(_ref2, voucher) {
+    checkVoucher: function checkVoucher(_ref3, voucher) {
       var commit, data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function checkVoucher$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              commit = _ref2.commit;
+              commit = _ref3.commit;
               _context3.prev = 1;
               _context3.next = 4;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(_js_api_Voucher__WEBPACK_IMPORTED_MODULE_1__["default"].checkVoucher(voucher));

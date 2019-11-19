@@ -11100,3 +11100,18 @@ a.text-dark:focus {
   }
 }
 
+.rendeem-logo {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.rendeem-logo > img {
+  width: 200px;
+}
+

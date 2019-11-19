@@ -27,9 +27,9 @@ export default {
         return Promise.reject(err)
       }
     },
-    async updateVoucher(_store, voucher) {
+    async updateVoucher({getters}) {
       try {
-        await Voucher.updateVoucher(voucher)
+        return await Voucher.updateVoucher(getters.voucher)
       } catch (err) {
         return Promise.reject(err)
       }

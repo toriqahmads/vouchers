@@ -24,17 +24,17 @@ class VoucherController extends Controller
 	    	if($voucher){
 	    		return response()->json(array('success' => true,
                     'message' => 'successfully created voucher',
-                    'data' => $voucher), 
+                    'data' => $voucher),
                 200);
 	    	}
 
-	    	return response()->json(array('success' => false, 
-	    		'message' => 'failed to generate new voucher'), 
+	    	return response()->json(array('success' => false,
+	    		'message' => 'failed to generate new voucher'),
 	    	500);
     	}
     	catch(Exception $error){
-    		return response()->json(array('success' => false, 
-	    		'message' => 'failed to generate new voucher'), 
+    		return response()->json(array('success' => false,
+	    		'message' => 'failed to generate new voucher'),
 	    	500);
     	}
     }
@@ -43,7 +43,7 @@ class VoucherController extends Controller
     	try{
     		$voucher_code = $request->voucher_code;
 
-	    	$voucher = Voucher::where('voucher_code', $voucher_code)->firstOrFail();
+	    	$voucher = Voucher::where('voucher_code', $voucher_code)->gifts()->firstOrFail();
 
             if($voucher->redeemed == 'Y'){
                 return response()->json(array('success' => false,
@@ -60,8 +60,8 @@ class VoucherController extends Controller
             200);
     	}
     	catch(Exception $error){
-    		return response()->json(array('success' => false, 
-    			'message' => 'failed to redeemed'), 
+    		return response()->json(array('success' => false,
+    			'message' => 'failed to redeemed'),
     		500);
     	}
     }
@@ -70,7 +70,7 @@ class VoucherController extends Controller
         try{
             $voucher_code = $request->voucher_code;
 
-            $voucher = Voucher::where('voucher_code', $voucher_code)->firstOrFail();
+            $voucher = Voucher::where('voucher_code', $voucher_code)->with('gifts')->first();
 
             if(!$voucher){
                 return response()->json(array('success' => false,
@@ -78,14 +78,16 @@ class VoucherController extends Controller
                 404);
             }
 
+            die(dd($voucher));
+
             return response()->json(array('success' => true,
                 'message' => 'voucher found',
                 'data' => $voucher),
             200);
         }
         catch(Exception $error){
-            return response()->json(array('success' => false, 
-                'message' => 'something went wrong'), 
+            return response()->json(array('success' => false,
+                'message' => 'something went wrong'),
             500);
         }
     }

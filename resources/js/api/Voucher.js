@@ -13,10 +13,10 @@ export default {
   },
   async updateVoucher(voucher) {
     try {
-      await axios.put('/api/vouchers', {
-        voucher
+      let {data: {success, message}} = await axios.put('/api/vouchers', {
+        voucher_code: voucher
       })
-      return Promise.resolve()
+      return {success, message}
     } catch (err) {
       return Promise.reject(
         Err.parsing(err)
@@ -25,7 +25,11 @@ export default {
   },
   async checkVoucher(voucher) {
     try {
-      let {data: {data}} = await axios.get(`/api/vouchers/${voucher}`)
+      let {data: {data}} = await axios.get(`/api/vouchers/${voucher}`, {
+        params: {
+          voucher_code: voucher
+        }
+      })
       return data
     } catch (err) {
       return Promise.reject(
