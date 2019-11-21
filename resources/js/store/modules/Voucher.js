@@ -2,25 +2,47 @@ import Voucher from '@/js/api/Voucher'
 
 export default {
   state: {
-    voucher: ''
+    voucher: '',
+    activation: {
+      mode: '',
+      message: '',
+      description: ''
+    }
   },
   getters: {
     voucher(state) {
       return state.voucher
+    },
+    activation(state) {
+      return state.activation
     }
   },
   mutations: {
     setVoucher(state, voucher) {
       state.voucher = voucher
     },
+    setActivation(state, activation) {
+      _.forEach(activation, (val, key) => {
+        if (_.includes(['mode', 'message', 'description'], key)) {
+          state.activation[key] = val
+        }
+      })
+    },
     removeVoucher(state) {
       state.voucher = ''
+    },
+    removeActivation(state) {
+      state.activation = {
+        mode: '',
+        message: '',
+        description: ''
+      }
     }
   },
   actions: {
-    async newVoucher({commit}) {
+    async newVoucher({commit}, no_hp) {
       try {
-        let data = await Voucher.newVoucher()
+        let data = await Voucher.newVoucher(no_hp)
         commit('setVoucher', data.voucher_code)
         return Promise.resolve()
       } catch (err) {
@@ -47,7 +69,7 @@ export default {
       try {
         let data = await Voucher.checkVoucher(voucher)
         commit('setVoucher', data.voucher_code)
-        return Promise.resolve()
+        return data
       } catch (err) {
         return Promise.reject(err)
       }

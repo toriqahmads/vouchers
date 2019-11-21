@@ -11100,7 +11100,7 @@ a.text-dark:focus {
   }
 }
 
-.rendeem-logo {
+.debetjack-logo {
   display: -webkit-box;
   display: flex;
   -webkit-box-align: center;
@@ -11111,7 +11111,7 @@ a.text-dark:focus {
   padding-bottom: 25px;
 }
 
-.rendeem-logo > img {
-  width: 200px;
+.debetjack-logo > img {
+  width: 100px;
 }
 

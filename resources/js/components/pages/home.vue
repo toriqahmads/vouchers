@@ -1,49 +1,143 @@
 <template>
-  <div class="container-fluid">
-    <div v-if="loading" class="row"></div>
-    <div v-else class="d-flex align-items-center justify-content-center" style="min-height: 100vh">
-      <vue-qrcode :value="voucher" :options="{ width: width }" />
+  <div class="row">
+    <div v-if="!success" class="col-12">
+      <form action="#" class="card" @submit.prevent="submitPhone">
+        <div class="card-header">
+          Nomor Hp
+        </div>
+        <div class="card-body">
+          <div class="form-group mb-0">
+            <input
+                type="number"
+                placeholder="Nomor Handphone"
+                v-model="$v.nomorhp.$model"
+                :class="['form-control', $v.nomorhp.$error ? 'is-invalid' : '']">
+            <template v-if="$v.nomorhp.$error">
+              <div v-if="!$v.nomorhp.required" class="invalid-feedback">
+                Nomor HP harus di isi
+              </div>
+              <div v-if="!$v.nomorhp.validPhone" class="invalid-feedback">
+                Format Nomor HP yang anda masukan salah
+              </div>
+            </template>
+          </div>
+        </div>
+        <div class="card-footer d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary">
+            Dapatkan Voucher
+          </button>
+        </div>
+      </form>
+    </div>
+    <div v-else class="col-12">
+      <div class="d-flex flex-wrap justify-content-center mb-1">
+        <vue-qrcode :value="voucher" :options="{ width: width }" />
+        <div class="text-center">
+          <span class="badge badge-info">{{voucher}}</span>
+        </div>
+      </div>
+      <div class="alert alert-info">
+        <p class="text-center mb-1">
+          Tukarkan voucher dengan menunjukan QR Code ke kasir
+        </p>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-primary" ref="button" data-placement="top" title="Copied" @click="copyLink">
+          Salin Link Voucher
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   import {mapGetters} from 'vuex'
+  import {required} from 'vuelidate/lib/validators'
   import VueQrcode from '@chenfengyuan/vue-qrcode'
 
   export default {
+    components: {
+      VueQrcode
+    },
     data() {
       return {
-        loading: true
+        nomorhp: '',
+        success: false
       }
     },
-    components: {
-      VueQrcode: VueQrcode
-    },
-    methods: {
-      async newVoucher() {
-        try {
-          await this.$store.dispatch('Voucher/newVoucher')
-        } catch (err) {
-          console.log(err)
+    validations: {
+      nomorhp: {
+        required,
+        validPhone(val) {
+          return val.match(/^08[0-9]{8,11}/g) !== null
         }
       }
     },
     computed: {
-      ...mapGetters('Voucher', {
-        vc: 'voucher'
-      }),
-      voucher() {
-        return this.vc
-      },
+      ...mapGetters('Voucher', [
+        'voucher'
+      ]),
       width() {
         let winWidth = $(window).width()
         return winWidth - 50
+      },
+      linkVoucher() {
+        return `${window.location.origin}/voucher/${this.voucher}`
       }
     },
-    async mounted() {
-      await this.newVoucher()
-      this.loading = false
+    methods: {
+      async submitPhone() {
+        try {
+          await this.$store.dispatch('Voucher/newVoucher', this.nomorhp)
+          this.success = true
+        } catch (err) {
+          this.$notify({
+            group: 'alert-group',
+            title: 'Error',
+            type: 'error',
+            text: err.message
+          })
+        }
+      },
+      copyLink() {
+        let textArea = document.createElement("textarea")
+
+        textArea.style.position = 'fixed'
+        textArea.style.top = 0
+        textArea.style.left = 0
+
+        textArea.style.width = '2em'
+        textArea.style.height = '2em'
+
+
+        textArea.style.padding = 0
+
+        textArea.style.border = 'none'
+        textArea.style.outline = 'none'
+        textArea.style.boxShadow = 'none'
+
+        textArea.style.background = 'transparent'
+
+        textArea.value = this.linkVoucher
+
+        document.body.appendChild(textArea)
+        textArea.focus()
+        textArea.select()
+
+        try {
+          document.execCommand('copy')
+          $(this.$refs.button).tooltip('show')
+        } catch (err) {
+          console.log('Oops, unable to copy')
+        }
+        document.body.removeChild(textArea)
+        setTimeout(() => {
+          $(this.$refs.button).tooltip('hide')
+        }, 2000)
+      }
+    },
+    beforeDestroy() {
+      this.$store.commit('Voucher/removeVoucher')
     }
   }
 </script>

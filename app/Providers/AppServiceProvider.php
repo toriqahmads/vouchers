@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //\URL::forceScheme('https');
+        \URL::forceScheme('https');
         Voucher::observe(VoucherObserver::class);
         Packet::observe(PacketObserver::class);
     }
