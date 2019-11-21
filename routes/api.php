@@ -21,3 +21,5 @@ Route::get('vouchers/{voucher_code}', 'VoucherController@findByCode');
 Route::post('vouchers/{packet_code}/get', 'VoucherController@generateVoucherByPacket');
 Route::post('vouchers', 'VoucherController@generateVoucher');
 Route::put('vouchers', 'VoucherController@redeem');
+
+Route::get('packets/{packet_code}', 'PacketController@findByCode');

@@ -13,9 +13,11 @@ export default {
       )
     }
   },
-  async newVoucherByPacket(packet_code) {
+  async newVoucherByPacket(packet_code, no_hp) {
     try {
-      let {data: {data}} = await axios.post(`/api/vouchers/${packet_code}/get`)
+      let {data: {data}} = await axios.post(`/api/vouchers/${packet_code}/get`, {
+        no_hp
+      })
       return data
     } catch (err) {
       return Promise.reject(
@@ -40,6 +42,20 @@ export default {
       let {data: {data}} = await axios.get(`/api/vouchers/${voucher}`, {
         params: {
           voucher_code: voucher
+        }
+      })
+      return data
+    } catch (err) {
+      return Promise.reject(
+        Err.parsing(err)
+      )
+    }
+  },
+  async checkPacket(packet) {
+    try {
+      let {data: {data}} = await axios.get(`/api/packets/${packet}`, {
+        params: {
+          packet_code: packet
         }
       })
       return data

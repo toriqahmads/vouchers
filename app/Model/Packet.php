@@ -11,6 +11,6 @@ class Packet extends Model
     protected $dates = ['deleted_at'];
     
     public function gifts(){
-        return $this->hasMany('App\Model\Gift');
+        return $this->hasMany('App\Model\Gift')->select(['id', 'gift', 'description', 'packet_id', 'percentage_win']);
     }
 }

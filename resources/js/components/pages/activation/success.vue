@@ -8,7 +8,7 @@
           <span class="badge badge-info">{{kode}}</span>
         </div>
       </div>
-      <div class="alert alert-info">
+      <div class="alert alert-success">
         <div class='text-center mb-1'>
           <h4>Item :</h4>
           <p>{{item}}</p>

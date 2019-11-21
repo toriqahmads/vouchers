@@ -27,18 +27,27 @@ class VoucherController extends Controller
 	    		    'message' => 'you have reached limit voucher this week'),
 	    	    401);
             }
+            
+            $gift = Gift::where('packet_id', null)->get();
 
-    		$gift = Gift::all()->random(1)->first();
+            if(count($gift) <= 0){
+                return response()->json(array('success' => false,
+	    		    'message' => 'failed to generate new voucher. There is no gift item available'),
+	    	    401);
+            }
+
+            $rand = rand(0, count($gift) - 1);
 
 	    	$data = [
                 'voucher_code' => VoucherCode::generateVoucher(),
-                'gift_id' => $gift->id,
+                'gift_id' => $gift[$rand]->id,
                 'no_hp' => $request->no_hp
 	    	];
 
 	    	$voucher = Voucher::create($data);
 
 	    	if($voucher){
+                $voucher = Voucher::where('voucher_code', $voucher->voucher_code)->with('gifts')->first();
 	    		return response()->json(array('success' => true,
                     'message' => 'successfully created voucher',
                     'data' => $voucher),
@@ -158,11 +167,10 @@ class VoucherController extends Controller
         $random = rand(1, 100);
         $current = 0;
         
-        $item = 0;
-        foreach($gift as $key => $val){
-            $current += $val['percentage_win'];
+        foreach($gift as $key => $g){
+            $current += $g->percentage_win;
             if($random <= $current){
-                return $val['id'];
+                return $g->id;
             }
         }
     }

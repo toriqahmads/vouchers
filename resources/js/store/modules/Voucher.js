@@ -3,6 +3,7 @@ import Voucher from '@/js/api/Voucher'
 export default {
   state: {
     voucher: '',
+    packet: '',
     activation: {
       mode: '',
       message: '',
@@ -20,6 +21,9 @@ export default {
   mutations: {
     setVoucher(state, voucher) {
       state.voucher = voucher
+    },
+    setPacket(state, packet) {
+      state.packet = packet
     },
     setActivation(state, activation) {
       _.forEach(activation, (val, key) => {
@@ -44,16 +48,16 @@ export default {
       try {
         let data = await Voucher.newVoucher(no_hp)
         commit('setVoucher', data.voucher_code)
-        return Promise.resolve()
+        return Promise.resolve(data)
       } catch (err) {
         return Promise.reject(err)
       }
     },
-    async newVoucherByCode({commit}) {
+    async newVoucherByPacket({commit}, datas) {
       try {
-        let data = await Voucher.newVoucherByCode()
+        let data = await Voucher.newVoucherByPacket(datas.packet_code, datas.nomorhp)
         commit('setVoucher', data.voucher_code)
-        return Promise.resolve()
+        return Promise.resolve(data)
       } catch (err) {
         return Promise.reject(err)
       }
@@ -69,6 +73,15 @@ export default {
       try {
         let data = await Voucher.checkVoucher(voucher)
         commit('setVoucher', data.voucher_code)
+        return data
+      } catch (err) {
+        return Promise.reject(err)
+      }
+    },
+    async checkPacket({commit}, packet) {
+      try {
+        let data = await Voucher.checkPacket(packet)
+        commit('setPacket', data.packet_code)
         return data
       } catch (err) {
         return Promise.reject(err)

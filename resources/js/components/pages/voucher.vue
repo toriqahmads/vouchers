@@ -10,9 +10,14 @@
           Voucher anda telah dipakai
         </p>
       </div>
-      <div class='text-center'>
-        <h4>Deskripsi :</h4>
-        <p>{{desc}}</p>
+      <div class="alert alert-info">
+        <div class='text-center mb-1'>
+          <h4>Item :</h4>
+          <p>{{item}}</p>
+        </div>
+        <div class='text-center mb-1'>
+          <p>{{desc}}</p>
+        </div>
       </div>
     </div>
     <div v-if="success" class="col-12">
@@ -20,6 +25,15 @@
         <vue-qrcode :value="voucher" :options="{ width: width }" />
         <div class="text-center">
           <span class="badge badge-info">{{voucher}}</span>
+        </div>
+      </div>
+      <div class="alert alert-success">
+        <div class='text-center mb-1'>
+          <h4>Item :</h4>
+          <p>{{item}}</p>
+        </div>
+        <div class='text-center mb-1'>
+          <p>{{desc}}</p>
         </div>
       </div>
       <div class="alert alert-info">
@@ -50,7 +64,8 @@
         redeemed: false,
         success: false,
         danger: false,
-        desc: ''
+        desc: '',
+        item: ''
       }
     },
     computed: {
@@ -71,9 +86,14 @@
           let data = await this.$store.dispatch('Voucher/checkVoucher', this.kode)
           if (data.redeemed === 'Y') {
             this.redeemed = true
-            this.desc = `${data.gifts.gift} - ${data.gifts.description}`
+            this.item = data.gifts.gift
+            this.desc = data.gifts.description
           }
-          else this.success = true
+          else{
+            this.item = data.gifts.gift
+            this.desc = data.gifts.description
+            this.success = true
+          } 
         } catch(err) {
           this.danger = true
         }

@@ -1,6 +1,21 @@
 <template>
   <div class="row">
-    <div v-if="!success" class="col-12">
+    <div v-if="limit" class="col-12">
+      <div class="alert alert-danger">
+        <p class="text-center m-0">
+          Maaf voucher telah habis
+        </p>
+      </div>
+    </div>
+    <div v-else-if="!success" class="col-12">
+      <div class="alert alert-info">
+        <h4> Daftar gift : </h4>
+        <ul class="mb-1">
+          <li v-for="item in itemList">
+            {{item.gift}}
+          </li>
+        </ul>
+      </div>
       <form action="#" class="card" @submit.prevent="submitPhone">
         <div class="card-header">
           Nomor Hp
@@ -70,10 +85,13 @@
     },
     data() {
       return {
+        nomorhp: '',
         desc: '',
         item: '',
-        nomorhp: '',
-        success: false
+        packet: '',
+        itemList: [],
+        success: false,
+        limit: false
       }
     },
     validations: {
@@ -88,6 +106,9 @@
       ...mapGetters('Voucher', [
         'voucher'
       ]),
+      packet_code() {
+        return this.$route.params.packet_code
+      },
       width() {
         let winWidth = $(window).width()
         return winWidth - 50
@@ -97,12 +118,31 @@
       }
     },
     methods: {
+      async checkPacket() {
+        try {
+          let data = await this.$store.dispatch('Voucher/checkPacket', this.packet_code)
+          if (data.voucher_limit === data.current_used) {
+            this.limit = true
+          }
+          else{
+            this.packet = data.packet_name
+            this.itemList = data.gifts
+          } 
+        } catch(err) {
+          this.danger = true
+        }
+      },
       async submitPhone() {
         try {
-          let data = await this.$store.dispatch('Voucher/newVoucher', this.nomorhp)
+          let data = {
+            packet_code: this.$route.params.packet_code,
+            nomorhp: this.nomorhp 
+          }
+          let datas = await this.$store.dispatch('Voucher/newVoucherByPacket', data)
+
+          this.item = datas.gifts.gift
+          this.desc = datas.gifts.description
           this.success = true
-          this.item = data.gifts.gift
-          this.desc = data.gifts.description
         } catch (err) {
           this.$notify({
             group: 'alert-group',
@@ -148,6 +188,9 @@
           $(this.$refs.button).tooltip('hide')
         }, 2000)
       }
+    },
+    async mounted() {
+      await this.checkPacket()
     },
     beforeDestroy() {
       this.$store.commit('Voucher/removeVoucher')
