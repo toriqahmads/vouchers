@@ -11,6 +11,16 @@ export default {
       )
     }
   },
+  async newVoucherByPacket(packet_code) {
+    try {
+      let {data: {data}} = await axios.post(`/api/vouchers/${packet_code}/get`)
+      return data
+    } catch (err) {
+      return Promise.reject(
+        Err.parsing(err)
+      )
+    }
+  },
   async updateVoucher(voucher) {
     try {
       let {data: {success, message}} = await axios.put('/api/vouchers', {

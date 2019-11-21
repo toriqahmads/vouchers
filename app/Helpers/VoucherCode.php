@@ -1,15 +1,14 @@
 <?php
 namespace App\Helpers;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use App\Voucher;
+use App\Model\Voucher;
 
 class VoucherCode{
 	public static function generateVoucher(){
 		$voucher = self::generateAndCheckVoucher();
 
-		while ($voucher == false) {
+		if($voucher == false) {
 			$voucher = self::generateAndCheckVoucher();
 		}
 

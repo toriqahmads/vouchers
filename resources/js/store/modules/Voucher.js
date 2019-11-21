@@ -27,6 +27,15 @@ export default {
         return Promise.reject(err)
       }
     },
+    async newVoucherByCode({commit}) {
+      try {
+        let data = await Voucher.newVoucherByCode()
+        commit('setVoucher', data.voucher_code)
+        return Promise.resolve()
+      } catch (err) {
+        return Promise.reject(err)
+      }
+    },
     async updateVoucher({getters}) {
       try {
         return await Voucher.updateVoucher(getters.voucher)

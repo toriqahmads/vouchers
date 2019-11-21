@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\VoucherRequest;
 use App\Model\Voucher;
 use App\Model\Gift;
+use App\Model\Packet;
 use App\Helpers\VoucherCode;
 
 class VoucherController extends Controller
@@ -53,6 +54,53 @@ class VoucherController extends Controller
 	    		'message' => 'failed to generate new voucher'),
 	    	500);
     	}
+    }
+
+    public function generateVoucherByPacket(Request $request){
+        try{
+            
+            $validatedData = $request->validate([
+                'no_hp' => 'required|min:10|max:13|regex:/^08[0-9]{8,11}/',
+                'packet_code' => 'min:10|max:10|regex:/[A-Z0-9]{10,10}/'
+            ]);
+            
+            $packet = Packet::where('packet_code', $request->packet_code)->with('gifts')->firstOrFail();
+
+            if($packet->current_used >= $packet->voucher_limit){
+                return response()->json(array('success' => false,
+	    		    'message' => 'packet has reached voucher limit'),
+	    	    401);
+            }
+
+            $gift = $packet->gifts;
+            
+            $item = $this->randomGift($gift);
+
+            $data = [
+                'voucher_code' => VoucherCode::generateVoucher(),
+                'gift_id' => $item,
+                'no_hp' => $request->no_hp
+            ];
+            
+            $voucher = Voucher::create($data);
+
+            if($voucher){
+                $packet->current_used = $packet->current_used + 1;
+                $packet->save();
+
+                $voucher = Voucher::where('voucher_code', $voucher->voucher_code)->with('gifts')->first();
+
+	    		return response()->json(array('success' => true,
+                    'message' => 'successfully created voucher',
+                    'data' => $voucher),
+                200);
+	    	}
+        }
+        catch(Exception $e){
+            return response()->json(array('success' => false,
+	    		'message' => 'failed to generate new voucher'),
+	    	500);
+        }
     }
 
     public function redeem(VoucherRequest $request){
@@ -104,6 +152,19 @@ class VoucherController extends Controller
             return response()->json(array('success' => false,
                 'message' => 'something went wrong'),
             500);
+        }
+    }
+
+    private function randomGift($gift){
+        $random = rand(1, 100);
+        $current = 0;
+        
+        $item = 0;
+        foreach($gift as $key => $val){
+            $current += $val['percentage_win'];
+            if($random <= $current){
+                return $val['id'];
+            }
         }
     }
 }

@@ -228,6 +228,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'VoucherCode' => App\Helpers\VoucherCode::class,
+        'PacketCode' => App\Helpers\PacketCode::class,
 
     ],
 
