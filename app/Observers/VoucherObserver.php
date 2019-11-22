@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Model\Voucher;
 use App\Helpers\VoucherCode;
+use Illuminate\Support\Facades\Auth;
 
 class VoucherObserver
 {
@@ -16,6 +17,10 @@ class VoucherObserver
     public function creating(Voucher $voucher)
     {
         $voucher->voucher_code = VoucherCode::generateVoucher();
+
+        if((Auth::user()->role->name != 'admin')){
+            $voucher->author_id = Auth::user()->id;
+        }
     }
 
     /**

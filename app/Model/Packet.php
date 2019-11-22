@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Packet extends Model
 {
@@ -12,5 +13,12 @@ class Packet extends Model
     
     public function gifts(){
         return $this->hasMany('App\Model\Gift')->select(['id', 'gift', 'description', 'packet_id', 'percentage_win']);
+    }
+
+    public function scopeCurrentUser($query)
+    {
+      if((Auth::user()->role->name != 'admin')){
+        return $this::where('author_id', Auth::user()->id);
+      }
     }
 }
