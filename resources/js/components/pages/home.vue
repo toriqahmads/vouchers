@@ -47,7 +47,9 @@
       </div>
       <div class="alert alert-info">
         <p class="text-center mb-1">
-          Tukarkan voucher dengan menunjukan QR Code ke kasir
+          Screenshot halaman ini dan Tukarkan voucher dengan menunjukan QR Code ke kasir
+          atau 
+          salin link voucher dengan menekan tombol di bawah
         </p>
       </div>
       <div class="d-flex justify-content-center">

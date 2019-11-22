@@ -18,8 +18,10 @@ class VoucherObserver
     {
         $voucher->voucher_code = VoucherCode::generateVoucher();
 
-        if((Auth::user()->role->name != 'admin')){
-            $voucher->author_id = Auth::user()->id;
+        if(Auth::user()){
+            if((Auth::user()->role->name != 'admin')){
+                $voucher->author_id = Auth::user()->id;
+            }
         }
     }
 

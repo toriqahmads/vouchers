@@ -3848,6 +3848,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -3978,6 +3980,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
 //
 //
 //
@@ -6653,7 +6657,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "alert alert-info" }, [
       _c("p", { staticClass: "text-center mb-1" }, [
         _vm._v(
-          "\n        Tukarkan voucher dengan menunjukan QR Code ke kasir\n      "
+          "\n        Screenshot halaman ini dan Tukarkan voucher dengan menunjukan QR Code ke kasir\n        atau \n        salin link voucher dengan menekan tombol di bawah\n      "
         )
       ])
     ])
@@ -6864,7 +6868,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "alert alert-info" }, [
       _c("p", { staticClass: "text-center mb-1" }, [
         _vm._v(
-          "\n        Tukarkan voucher dengan menunjukan QR Code ke kasir\n      "
+          "\n        Screenshot halaman ini dan Tukarkan voucher dengan menunjukan QR Code ke kasir\n        atau \n        salin link voucher dengan menekan tombol di bawah\n      "
         )
       ])
     ])
