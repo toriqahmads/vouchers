@@ -8,6 +8,7 @@ use App\Model\Voucher;
 use App\Model\Gift;
 use App\Model\Packet;
 use App\Helpers\VoucherCode;
+use Illuminate\Support\Facades\App;
 
 class VoucherController extends Controller
 {
@@ -67,7 +68,6 @@ class VoucherController extends Controller
 
     public function generateVoucherByPacket(Request $request){
         try{
-            
             $validatedData = $request->validate([
                 'no_hp' => 'required|min:10|max:13|regex:/^08[0-9]{8,11}/',
                 'packet_code' => 'min:10|max:10|regex:/[A-Z0-9]{10,10}/'
@@ -110,6 +110,75 @@ class VoucherController extends Controller
 	    		'message' => 'failed to generate new voucher'),
 	    	500);
         }
+    }
+
+    public function generateBulkVoucher(Request $request){
+        try{
+            $vouchers = [];
+            if(!is_null($request->packet_code) && !empty($request->packet_code)){
+                $packet = Packet::where('packet_code', $request->packet_code)->with('gifts')->firstOrFail();
+    
+                if($packet->current_used >= $packet->voucher_limit){
+                    return response()->json(array('success' => false,
+                        'message' => 'packet has reached voucher limit'),
+                    401);
+                }
+
+                for($i=0; $i < $request->voucher_total; $i++){
+                    $gift = $packet->gifts;
+                
+                    $item = $this->randomGift($gift);
+        
+                    $data = [
+                        'voucher_code' => VoucherCode::generateVoucher(),
+                        'gift_id' => $item
+                    ];
+                    
+                    $voucher = Voucher::create($data);
+        
+                    if($voucher){
+                        $packet->current_used = $packet->current_used + 1;
+                        $packet->save();
+        
+                        $vouchers[$i] = getenv('APP_URL') . "/voucher/" . $voucher->voucher_code;
+                    }
+                }
+            }
+            else{
+                $gift = Gift::where('packet_id', null)->get();
+
+                if(count($gift) <= 0){
+                    return response()->json(array('success' => false,
+                        'message' => 'failed to generate new voucher. There is no gift item available'),
+                    401);
+                }
+
+                for($i=0; $i < $request->voucher_total; $i++){
+                    $rand = rand(0, count($gift) - 1);
+
+                    $data = [
+                        'voucher_code' => VoucherCode::generateVoucher(),
+                        'gift_id' => $gift[$rand]->id,
+                        'no_hp' => $request->no_hp
+                    ];
+
+                    $voucher = Voucher::create($data);
+                    if($voucher){
+                        $vouchers[$i] = getenv('APP_URL') . "/voucher/" . $voucher->voucher_code;
+                    }
+                }
+            }
+
+            return response()->json(array('success' => true,
+                'message' => 'successfully created voucher',
+                'data' => $vouchers),
+            200);
+        }
+        catch(Exception $e){
+            return response()->json(array('success' => false,
+	    		'message' => 'failed to generate new voucher'),
+	    	500);
+        }  
     }
 
     public function redeem(VoucherRequest $request){
