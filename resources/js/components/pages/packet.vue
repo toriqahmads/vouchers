@@ -45,6 +45,7 @@
       </form>
     </div>
     <div v-else class="col-12">
+      <h3 class="text-success text-center">Selamat Anda mendapatkan voucher!</h3>
       <div class="d-flex flex-wrap justify-content-center mb-1">
         <vue-qrcode :value="voucher" :options="{ width: width }" />
         <div class="text-center">

@@ -72,12 +72,23 @@ class VoucherController extends Controller
                 'no_hp' => 'required|min:10|max:13|regex:/^08[0-9]{8,11}/',
                 'packet_code' => 'min:10|max:10|regex:/[A-Z0-9]{10,10}/'
             ]);
+
+            $from = date('Y-m-d');
+            $to = date('Y-m-d', strtotime('+1 days'));
+
+            $limit = Voucher::where('no_hp', $request->no_hp)->whereBetween('created_at', [$from, $to])->count();
+
+            if($limit >= 1){
+                return response()->json(array('success' => false,
+	    		    'message' => 'Maaf, Anda telah mencapai limit hari ini'),
+	    	    401);
+            }
             
             $packet = Packet::where('packet_code', $request->packet_code)->with('gifts')->firstOrFail();
 
             if($packet->current_used >= $packet->voucher_limit){
                 return response()->json(array('success' => false,
-	    		    'message' => 'packet has reached voucher limit'),
+	    		    'message' => 'Voucher telah habis'),
 	    	    401);
             }
 

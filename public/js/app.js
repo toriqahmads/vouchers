@@ -3850,6 +3850,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -3980,6 +3981,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -6583,6 +6585,10 @@ var render = function() {
           )
         ])
       : _c("div", { staticClass: "col-12" }, [
+          _c("h3", { staticClass: "text-success text-center" }, [
+            _vm._v("Selamat Anda mendapatkan voucher!")
+          ]),
+          _vm._v(" "),
           _c(
             "div",
             { staticClass: "d-flex flex-wrap justify-content-center mb-1" },
@@ -6784,6 +6790,10 @@ var render = function() {
           )
         ])
       : _c("div", { staticClass: "col-12" }, [
+          _c("h3", { staticClass: "text-success text-center" }, [
+            _vm._v("Selamat Anda mendapatkan voucher!")
+          ]),
+          _vm._v(" "),
           _c(
             "div",
             { staticClass: "d-flex flex-wrap justify-content-center mb-1" },
