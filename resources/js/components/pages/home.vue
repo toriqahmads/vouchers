@@ -37,15 +37,6 @@
           <span class="badge badge-info">{{voucher}}</span>
         </div>
       </div>
-      <div class="alert alert-success">
-        <div class='text-center mb-1'>
-          <h4>Item :</h4>
-          <p>{{item}}</p>
-        </div>
-        <div class='text-center mb-1'>
-          <p>{{desc}}</p>
-        </div>
-      </div>
       <div class="alert alert-info">
         <p class="text-center mb-1">
           Screenshot halaman ini dan Tukarkan voucher dengan menunjukan QR Code ke kasir
@@ -57,6 +48,15 @@
         <button type="button" class="btn btn-primary" ref="button" data-placement="top" title="Copied" @click="copyLink">
           Salin Link Voucher
         </button>
+      </div>
+      <div class="alert alert-success">
+        <div class='text-center mb-1'>
+          <h4>Item :</h4>
+          <p>{{item}}</p>
+        </div>
+        <div class='text-center mb-1'>
+          <p>{{desc}}</p>
+        </div>
       </div>
     </div>
   </div>
