@@ -3839,6 +3839,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3848,6 +3860,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
+      desc: '',
+      item: '',
       nomorhp: '',
       success: false
     };
@@ -3871,6 +3885,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   methods: {
     submitPhone: function submitPhone() {
+      var data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function submitPhone$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -3880,12 +3895,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(this.$store.dispatch('Voucher/newVoucher', this.nomorhp));
 
             case 3:
+              data = _context.sent;
               this.success = true;
-              _context.next = 9;
+              this.item = data.gifts.gift;
+              this.desc = data.gifts.description;
+              _context.next = 12;
               break;
 
-            case 6:
-              _context.prev = 6;
+            case 9:
+              _context.prev = 9;
               _context.t0 = _context["catch"](0);
               this.$notify({
                 group: 'alert-group',
@@ -3894,12 +3912,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 text: _context.t0.message
               });
 
-            case 9:
+            case 12:
             case "end":
               return _context.stop();
           }
         }
-      }, null, this, [[0, 6]]);
+      }, null, this, [[0, 9]]);
     },
     copyLink: function copyLink() {
       var _this = this;
@@ -3932,6 +3950,275 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         $(_this.$refs.button).tooltip('hide');
       }, 2000);
     }
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.$store.commit('Voucher/removeVoucher');
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/packet.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/packet.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _chenfengyuan_vue_qrcode__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chenfengyuan/vue-qrcode */ "./node_modules/@chenfengyuan/vue-qrcode/dist/vue-qrcode.esm.js");
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    VueQrcode: _chenfengyuan_vue_qrcode__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  data: function data() {
+    return {
+      nomorhp: '',
+      desc: '',
+      item: '',
+      packet: '',
+      itemList: [],
+      success: false,
+      limit: false
+    };
+  },
+  validations: {
+    nomorhp: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
+      validPhone: function validPhone(val) {
+        return val.match(/^08[0-9]{8,11}/g) !== null;
+      }
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('Voucher', ['voucher']), {
+    packet_code: function packet_code() {
+      return this.$route.params.packet_code;
+    },
+    width: function width() {
+      var winWidth = $(window).width();
+      return winWidth - 50;
+    },
+    linkVoucher: function linkVoucher() {
+      return "".concat(window.location.origin, "/voucher/").concat(this.voucher);
+    }
+  }),
+  methods: {
+    checkPacket: function checkPacket() {
+      var data;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function checkPacket$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(this.$store.dispatch('Voucher/checkPacket', this.packet_code));
+
+            case 3:
+              data = _context.sent;
+
+              if (data.voucher_limit === data.current_used) {
+                this.limit = true;
+              } else {
+                this.packet = data.packet_name;
+                this.itemList = data.gifts;
+              }
+
+              _context.next = 10;
+              break;
+
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context["catch"](0);
+              this.danger = true;
+
+            case 10:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, null, this, [[0, 7]]);
+    },
+    submitPhone: function submitPhone() {
+      var data, datas;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function submitPhone$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              data = {
+                packet_code: this.$route.params.packet_code,
+                nomorhp: this.nomorhp
+              };
+              _context2.next = 4;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(this.$store.dispatch('Voucher/newVoucherByPacket', data));
+
+            case 4:
+              datas = _context2.sent;
+              this.item = datas.gifts.gift;
+              this.desc = datas.gifts.description;
+              this.success = true;
+              _context2.next = 13;
+              break;
+
+            case 10:
+              _context2.prev = 10;
+              _context2.t0 = _context2["catch"](0);
+              this.$notify({
+                group: 'alert-group',
+                title: 'Error',
+                type: 'error',
+                text: _context2.t0.message
+              });
+
+            case 13:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, null, this, [[0, 10]]);
+    },
+    copyLink: function copyLink() {
+      var _this = this;
+
+      var textArea = document.createElement("textarea");
+      textArea.style.position = 'fixed';
+      textArea.style.top = 0;
+      textArea.style.left = 0;
+      textArea.style.width = '2em';
+      textArea.style.height = '2em';
+      textArea.style.padding = 0;
+      textArea.style.border = 'none';
+      textArea.style.outline = 'none';
+      textArea.style.boxShadow = 'none';
+      textArea.style.background = 'transparent';
+      textArea.value = this.linkVoucher;
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        document.execCommand('copy');
+        $(this.$refs.button).tooltip('show');
+      } catch (err) {
+        console.log('Oops, unable to copy');
+      }
+
+      document.body.removeChild(textArea);
+      setTimeout(function () {
+        $(_this.$refs.button).tooltip('hide');
+      }, 2000);
+    }
+  },
+  mounted: function mounted() {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function mounted$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(this.checkPacket());
+
+          case 2:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, null, this);
   },
   beforeDestroy: function beforeDestroy() {
     this.$store.commit('Voucher/removeVoucher');
@@ -4094,6 +4381,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4106,7 +4407,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       redeemed: false,
       success: false,
       danger: false,
-      desc: ''
+      desc: '',
+      item: ''
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('Voucher', ['voucher']), {
@@ -4134,8 +4436,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               if (data.redeemed === 'Y') {
                 this.redeemed = true;
-                this.desc = "".concat(data.gifts.gift, " - ").concat(data.gifts.description);
-              } else this.success = true;
+                this.item = data.gifts.gift;
+                this.desc = data.gifts.description;
+              } else {
+                this.item = data.gifts.gift;
+                this.desc = data.gifts.description;
+                this.success = true;
+              }
 
               _context.next = 10;
               break;
@@ -6159,7 +6466,7 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "alert alert-info" }, [
+          _c("div", { staticClass: "alert alert-success" }, [
             _c("div", { staticClass: "text-center mb-1" }, [
               _c("h4", [_vm._v("Item :")]),
               _vm._v(" "),
@@ -6278,6 +6585,10 @@ var render = function() {
           )
         ])
       : _c("div", { staticClass: "col-12" }, [
+          _c("h3", { staticClass: "text-success text-center" }, [
+            _vm._v("Selamat Anda mendapatkan voucher!")
+          ]),
+          _vm._v(" "),
           _c(
             "div",
             { staticClass: "d-flex flex-wrap justify-content-center mb-1" },
@@ -6294,6 +6605,18 @@ var render = function() {
             ],
             1
           ),
+          _vm._v(" "),
+          _c("div", { staticClass: "alert alert-success" }, [
+            _c("div", { staticClass: "text-center mb-1" }, [
+              _c("h4", [_vm._v("Item :")]),
+              _vm._v(" "),
+              _c("p", [_vm._v(_vm._s(_vm.item))])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "text-center mb-1" }, [
+              _c("p", [_vm._v(_vm._s(_vm.desc))])
+            ])
+          ]),
           _vm._v(" "),
           _vm._m(1),
           _vm._v(" "),
@@ -6340,7 +6663,222 @@ var staticRenderFns = [
     return _c("div", { staticClass: "alert alert-info" }, [
       _c("p", { staticClass: "text-center mb-1" }, [
         _vm._v(
-          "\n        Tukarkan voucher dengan menunjukan QR Code ke kasir\n      "
+          "\n        Screenshot halaman ini dan Tukarkan voucher dengan menunjukan QR Code ke kasir\n        atau \n        salin link voucher dengan menekan tombol di bawah\n      "
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/packet.vue?vue&type=template&id=26f6177e&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/packet.vue?vue&type=template&id=26f6177e& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _vm.limit
+      ? _c("div", { staticClass: "col-12" }, [_vm._m(0)])
+      : !_vm.success
+      ? _c("div", { staticClass: "col-12" }, [
+          _c("div", { staticClass: "alert alert-info" }, [
+            _c("h4", [_vm._v(" Daftar gift : ")]),
+            _vm._v(" "),
+            _c(
+              "ul",
+              { staticClass: "mb-1" },
+              _vm._l(_vm.itemList, function(item) {
+                return _c("li", [
+                  _vm._v("\n          " + _vm._s(item.gift) + "\n        ")
+                ])
+              }),
+              0
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              staticClass: "card",
+              attrs: { action: "#" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.submitPhone($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "card-header" }, [
+                _vm._v("\n        Nomor Hp\n      ")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c(
+                  "div",
+                  { staticClass: "form-group mb-0" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.$v.nomorhp.$model,
+                          expression: "$v.nomorhp.$model"
+                        }
+                      ],
+                      class: [
+                        "form-control",
+                        _vm.$v.nomorhp.$error ? "is-invalid" : ""
+                      ],
+                      attrs: { type: "number", placeholder: "Nomor Handphone" },
+                      domProps: { value: _vm.$v.nomorhp.$model },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.$v.nomorhp,
+                            "$model",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.$v.nomorhp.$error
+                      ? [
+                          !_vm.$v.nomorhp.required
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                _vm._v(
+                                  "\n              Nomor HP harus di isi\n            "
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          !_vm.$v.nomorhp.validPhone
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                _vm._v(
+                                  "\n              Format Nomor HP yang anda masukan salah\n            "
+                                )
+                              ])
+                            : _vm._e()
+                        ]
+                      : _vm._e()
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(1)
+            ]
+          )
+        ])
+      : _c("div", { staticClass: "col-12" }, [
+          _c("h3", { staticClass: "text-success text-center" }, [
+            _vm._v("Selamat Anda mendapatkan voucher!")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "d-flex flex-wrap justify-content-center mb-1" },
+            [
+              _c("vue-qrcode", {
+                attrs: { value: _vm.voucher, options: { width: _vm.width } }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "text-center" }, [
+                _c("span", { staticClass: "badge badge-info" }, [
+                  _vm._v(_vm._s(_vm.voucher))
+                ])
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "alert alert-success" }, [
+            _c("div", { staticClass: "text-center mb-1" }, [
+              _c("h4", [_vm._v("Item :")]),
+              _vm._v(" "),
+              _c("p", [_vm._v(_vm._s(_vm.item))])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "text-center mb-1" }, [
+              _c("p", [_vm._v(_vm._s(_vm.desc))])
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(2),
+          _vm._v(" "),
+          _c("div", { staticClass: "d-flex justify-content-center" }, [
+            _c(
+              "button",
+              {
+                ref: "button",
+                staticClass: "btn btn-primary",
+                attrs: {
+                  type: "button",
+                  "data-placement": "top",
+                  title: "Copied"
+                },
+                on: { click: _vm.copyLink }
+              },
+              [_vm._v("\n        Salin Link Voucher\n      ")]
+            )
+          ])
+        ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "alert alert-danger" }, [
+      _c("p", { staticClass: "text-center m-0" }, [
+        _vm._v("\n        Maaf voucher telah habis\n      ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "card-footer d-flex justify-content-center" },
+      [
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+          [_vm._v("\n          Dapatkan Voucher\n        ")]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "alert alert-info" }, [
+      _c("p", { staticClass: "text-center mb-1" }, [
+        _vm._v(
+          "\n        Screenshot halaman ini dan Tukarkan voucher dengan menunjukan QR Code ke kasir\n        atau \n        salin link voucher dengan menekan tombol di bawah\n      "
         )
       ])
     ])
@@ -6409,10 +6947,16 @@ var render = function() {
           _vm._v(" "),
           _vm._m(0),
           _vm._v(" "),
-          _c("div", { staticClass: "text-center" }, [
-            _c("h4", [_vm._v("Deskripsi :")]),
+          _c("div", { staticClass: "alert alert-info" }, [
+            _c("div", { staticClass: "text-center mb-1" }, [
+              _c("h4", [_vm._v("Item :")]),
+              _vm._v(" "),
+              _c("p", [_vm._v(_vm._s(_vm.item))])
+            ]),
             _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(_vm.desc))])
+            _c("div", { staticClass: "text-center mb-1" }, [
+              _c("p", [_vm._v(_vm._s(_vm.desc))])
+            ])
           ])
         ])
       : _vm._e(),
@@ -6435,6 +6979,18 @@ var render = function() {
             ],
             1
           ),
+          _vm._v(" "),
+          _c("div", { staticClass: "alert alert-success" }, [
+            _c("div", { staticClass: "text-center mb-1" }, [
+              _c("h4", [_vm._v("Item :")]),
+              _vm._v(" "),
+              _c("p", [_vm._v(_vm._s(_vm.item))])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "text-center mb-1" }, [
+              _c("p", [_vm._v(_vm._s(_vm.desc))])
+            ])
+          ]),
           _vm._v(" "),
           _vm._m(1)
         ])
@@ -25754,22 +26310,22 @@ __webpack_require__.r(__webpack_exports__);
       }
     }, null, null, [[0, 8]]);
   },
-  updateVoucher: function updateVoucher(voucher) {
+  newVoucherByPacket: function newVoucherByPacket(packet_code, no_hp) {
     var _ref2, data;
 
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function updateVoucher$(_context2) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function newVoucherByPacket$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.prev = 0;
             _context2.next = 3;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.put('/api/vouchers', {
-              voucher_code: voucher
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post("/api/vouchers/".concat(packet_code, "/get"), {
+              no_hp: no_hp
             }));
 
           case 3:
             _ref2 = _context2.sent;
-            data = _ref2.data;
+            data = _ref2.data.data;
             return _context2.abrupt("return", data);
 
           case 8:
@@ -25784,24 +26340,22 @@ __webpack_require__.r(__webpack_exports__);
       }
     }, null, null, [[0, 8]]);
   },
-  checkVoucher: function checkVoucher(voucher) {
+  updateVoucher: function updateVoucher(voucher) {
     var _ref3, data;
 
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function checkVoucher$(_context3) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function updateVoucher$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.prev = 0;
             _context3.next = 3;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.get("/api/vouchers/".concat(voucher), {
-              params: {
-                voucher_code: voucher
-              }
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.put('/api/vouchers', {
+              voucher_code: voucher
             }));
 
           case 3:
             _ref3 = _context3.sent;
-            data = _ref3.data.data;
+            data = _ref3.data;
             return _context3.abrupt("return", data);
 
           case 8:
@@ -25812,6 +26366,70 @@ __webpack_require__.r(__webpack_exports__);
           case 11:
           case "end":
             return _context3.stop();
+        }
+      }
+    }, null, null, [[0, 8]]);
+  },
+  checkVoucher: function checkVoucher(voucher) {
+    var _ref4, data;
+
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function checkVoucher$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.prev = 0;
+            _context4.next = 3;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.get("/api/vouchers/".concat(voucher), {
+              params: {
+                voucher_code: voucher
+              }
+            }));
+
+          case 3:
+            _ref4 = _context4.sent;
+            data = _ref4.data.data;
+            return _context4.abrupt("return", data);
+
+          case 8:
+            _context4.prev = 8;
+            _context4.t0 = _context4["catch"](0);
+            return _context4.abrupt("return", Promise.reject(_js_tools_Err__WEBPACK_IMPORTED_MODULE_1__["default"].parsing(_context4.t0)));
+
+          case 11:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, null, null, [[0, 8]]);
+  },
+  checkPacket: function checkPacket(packet) {
+    var _ref5, data;
+
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function checkPacket$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.prev = 0;
+            _context5.next = 3;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.get("/api/packets/".concat(packet), {
+              params: {
+                packet_code: packet
+              }
+            }));
+
+          case 3:
+            _ref5 = _context5.sent;
+            data = _ref5.data.data;
+            return _context5.abrupt("return", data);
+
+          case 8:
+            _context5.prev = 8;
+            _context5.t0 = _context5["catch"](0);
+            return _context5.abrupt("return", Promise.reject(_js_tools_Err__WEBPACK_IMPORTED_MODULE_1__["default"].parsing(_context5.t0)));
+
+          case 11:
+          case "end":
+            return _context5.stop();
         }
       }
     }, null, null, [[0, 8]]);
@@ -26210,6 +26828,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/pages/packet.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/pages/packet.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _packet_vue_vue_type_template_id_26f6177e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./packet.vue?vue&type=template&id=26f6177e& */ "./resources/js/components/pages/packet.vue?vue&type=template&id=26f6177e&");
+/* harmony import */ var _packet_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./packet.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/packet.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _packet_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _packet_vue_vue_type_template_id_26f6177e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _packet_vue_vue_type_template_id_26f6177e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/pages/packet.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/packet.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/pages/packet.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_packet_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./packet.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/packet.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_packet_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/packet.vue?vue&type=template&id=26f6177e&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/pages/packet.vue?vue&type=template&id=26f6177e& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_packet_vue_vue_type_template_id_26f6177e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./packet.vue?vue&type=template&id=26f6177e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/packet.vue?vue&type=template&id=26f6177e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_packet_vue_vue_type_template_id_26f6177e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_packet_vue_vue_type_template_id_26f6177e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/pages/redeem.vue":
 /*!**************************************************!*\
   !*** ./resources/js/components/pages/redeem.vue ***!
@@ -26384,6 +27071,7 @@ var map = {
 	"./activation.js": "./resources/js/routers/routes/activation.js",
 	"./home.js": "./resources/js/routers/routes/home.js",
 	"./index.js": "./resources/js/routers/routes/index.js",
+	"./packet.js": "./resources/js/routers/routes/packet.js",
 	"./redeem.js": "./resources/js/routers/routes/redeem.js",
 	"./voucher.js": "./resources/js/routers/routes/voucher.js"
 };
@@ -26478,6 +27166,24 @@ files.keys().forEach(function (fileName) {
   routes.push(files(fileName)["default"]);
 });
 /* harmony default export */ __webpack_exports__["default"] = (routes);
+
+/***/ }),
+
+/***/ "./resources/js/routers/routes/packet.js":
+/*!***********************************************!*\
+  !*** ./resources/js/routers/routes/packet.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _js_components_pages_packet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/js/components/pages/packet */ "./resources/js/components/pages/packet.vue");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  path: '/packet/:packet_code',
+  component: _js_components_pages_packet__WEBPACK_IMPORTED_MODULE_0__["default"]
+});
 
 /***/ }),
 
@@ -26592,6 +27298,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     voucher: '',
+    packet: '',
     activation: {
       mode: '',
       message: '',
@@ -26609,6 +27316,9 @@ __webpack_require__.r(__webpack_exports__);
   mutations: {
     setVoucher: function setVoucher(state, voucher) {
       state.voucher = voucher;
+    },
+    setPacket: function setPacket(state, packet) {
+      state.packet = packet;
     },
     setActivation: function setActivation(state, activation) {
       _.forEach(activation, function (val, key) {
@@ -26643,7 +27353,7 @@ __webpack_require__.r(__webpack_exports__);
             case 4:
               data = _context.sent;
               commit('setVoucher', data.voucher_code);
-              return _context.abrupt("return", Promise.resolve());
+              return _context.abrupt("return", Promise.resolve(data));
 
             case 9:
               _context.prev = 9;
@@ -26657,56 +27367,112 @@ __webpack_require__.r(__webpack_exports__);
         }
       }, null, null, [[1, 9]]);
     },
-    updateVoucher: function updateVoucher(_ref2) {
-      var getters;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function updateVoucher$(_context2) {
+    newVoucherByPacket: function newVoucherByPacket(_ref2, datas) {
+      var commit, data;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function newVoucherByPacket$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              getters = _ref2.getters;
+              commit = _ref2.commit;
               _context2.prev = 1;
               _context2.next = 4;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(_js_api_Voucher__WEBPACK_IMPORTED_MODULE_1__["default"].updateVoucher(getters.voucher));
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(_js_api_Voucher__WEBPACK_IMPORTED_MODULE_1__["default"].newVoucherByPacket(datas.packet_code, datas.nomorhp));
 
             case 4:
-              return _context2.abrupt("return", _context2.sent);
+              data = _context2.sent;
+              commit('setVoucher', data.voucher_code);
+              return _context2.abrupt("return", Promise.resolve(data));
 
-            case 7:
-              _context2.prev = 7;
+            case 9:
+              _context2.prev = 9;
               _context2.t0 = _context2["catch"](1);
               return _context2.abrupt("return", Promise.reject(_context2.t0));
 
-            case 10:
+            case 12:
             case "end":
               return _context2.stop();
           }
         }
-      }, null, null, [[1, 7]]);
+      }, null, null, [[1, 9]]);
     },
-    checkVoucher: function checkVoucher(_ref3, voucher) {
-      var commit, data;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function checkVoucher$(_context3) {
+    updateVoucher: function updateVoucher(_ref3) {
+      var getters;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function updateVoucher$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              commit = _ref3.commit;
+              getters = _ref3.getters;
               _context3.prev = 1;
               _context3.next = 4;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(_js_api_Voucher__WEBPACK_IMPORTED_MODULE_1__["default"].checkVoucher(voucher));
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(_js_api_Voucher__WEBPACK_IMPORTED_MODULE_1__["default"].updateVoucher(getters.voucher));
 
             case 4:
-              data = _context3.sent;
-              commit('setVoucher', data.voucher_code);
-              return _context3.abrupt("return", data);
+              return _context3.abrupt("return", _context3.sent);
 
-            case 9:
-              _context3.prev = 9;
+            case 7:
+              _context3.prev = 7;
               _context3.t0 = _context3["catch"](1);
               return _context3.abrupt("return", Promise.reject(_context3.t0));
 
-            case 12:
+            case 10:
             case "end":
               return _context3.stop();
+          }
+        }
+      }, null, null, [[1, 7]]);
+    },
+    checkVoucher: function checkVoucher(_ref4, voucher) {
+      var commit, data;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function checkVoucher$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit;
+              _context4.prev = 1;
+              _context4.next = 4;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(_js_api_Voucher__WEBPACK_IMPORTED_MODULE_1__["default"].checkVoucher(voucher));
+
+            case 4:
+              data = _context4.sent;
+              commit('setVoucher', data.voucher_code);
+              return _context4.abrupt("return", data);
+
+            case 9:
+              _context4.prev = 9;
+              _context4.t0 = _context4["catch"](1);
+              return _context4.abrupt("return", Promise.reject(_context4.t0));
+
+            case 12:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, null, null, [[1, 9]]);
+    },
+    checkPacket: function checkPacket(_ref5, packet) {
+      var commit, data;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function checkPacket$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref5.commit;
+              _context5.prev = 1;
+              _context5.next = 4;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(_js_api_Voucher__WEBPACK_IMPORTED_MODULE_1__["default"].checkPacket(packet));
+
+            case 4:
+              data = _context5.sent;
+              commit('setPacket', data.packet_code);
+              return _context5.abrupt("return", data);
+
+            case 9:
+              _context5.prev = 9;
+              _context5.t0 = _context5["catch"](1);
+              return _context5.abrupt("return", Promise.reject(_context5.t0));
+
+            case 12:
+            case "end":
+              return _context5.stop();
           }
         }
       }, null, null, [[1, 9]]);
@@ -26789,7 +27555,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\programs\XAMPP\vouchers\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\WIN10\Documents\debetjak\vouchers\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })
