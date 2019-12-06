@@ -1,10 +1,31 @@
 import Err from '@/js/tools/Err'
 
 export default {
-  async newVoucher(no_hp) {
+  async newVoucher(dt) {
     try {
-      let {data: {data}} = await axios.post('/api/vouchers', {
-        no_hp
+      let {data: {data}} = await axios.post('/api/vouchers', dt)
+      return data
+    } catch (err) {
+      return Promise.reject(
+        Err.parsing(err)
+      )
+    }
+  },
+  async getVoucher(dt) {
+    try {
+      let {voucher} = dt
+      let {data: {data}} = await axios.get(`/api/vouchers/${voucher}`)
+      return data
+    } catch (err) {
+      return Promise.reject(
+        Err.parsing(err)
+      )
+    }
+  },
+  async getVoucherById(dt) {
+    try {
+      let {data: {data}} = await axios.get(`/api/vouchers`, {
+        params: dt
       })
       return data
     } catch (err) {
@@ -13,51 +34,9 @@ export default {
       )
     }
   },
-  async newVoucherByPacket(packet_code, no_hp) {
+  async updateVoucher(dt) {
     try {
-      let {data: {data}} = await axios.post(`/api/vouchers/${packet_code}/get`, {
-        no_hp
-      })
-      return data
-    } catch (err) {
-      return Promise.reject(
-        Err.parsing(err)
-      )
-    }
-  },
-  async updateVoucher(voucher) {
-    try {
-      let {data} = await axios.put('/api/vouchers', {
-        voucher_code: voucher
-      })
-      return data
-    } catch (err) {
-      return Promise.reject(
-        Err.parsing(err)
-      )
-    }
-  },
-  async checkVoucher(voucher) {
-    try {
-      let {data: {data}} = await axios.get(`/api/vouchers/${voucher}`, {
-        params: {
-          voucher_code: voucher
-        }
-      })
-      return data
-    } catch (err) {
-      return Promise.reject(
-        Err.parsing(err)
-      )
-    }
-  },
-  async checkPacket(packet) {
-    try {
-      let {data: {data}} = await axios.get(`/api/packets/${packet}`, {
-        params: {
-          packet_code: packet
-        }
-      })
+      let {data} = await axios.put('/api/vouchers', dt)
       return data
     } catch (err) {
       return Promise.reject(

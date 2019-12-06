@@ -1,107 +1,86 @@
 <template>
-  <div class="row">
-    <div v-if="loading"></div>
-    <div v-if="redeemed" class="col-12">
-      <div class="text-center">
-        {{voucher}}
-      </div>
-      <div class="alert alert-warning">
-        <p class="text-center mb-1">
-          Voucher anda telah dipakai
-        </p>
-      </div>
-      <div class="alert alert-info">
-        <div class='text-center mb-1'>
-          <h4>Item :</h4>
-          <p>{{item}}</p>
+  <fb-login-scope
+      :app-id="facebook.appId"
+      v-model="facebook.model"
+      @sdk-init="handleSdkInit"
+      @connect="handleConnect"
+      @logout="logout">
+    <div class="root" slot-scope="scope">
+      <loading v-if="scope.working" />
+      <login v-if="scope.enabled && scope.disconnected && checkUser" :toggle-login="scope.toggleLogin"/>
+      <div v-if="scope.enabled && scope.connected && checkUser" class="layouts">
+        <div class="layouts-container">
+          <router-view></router-view>
         </div>
-        <div class='text-center mb-1'>
-          <p>{{desc}}</p>
-        </div>
+        <nav-menu />
       </div>
     </div>
-    <div v-if="success" class="col-12">
-      <div class="d-flex flex-wrap justify-content-center mb-1">
-        <vue-qrcode :value="voucher" :options="{ width: width }" />
-        <div class="text-center">
-          <span class="badge badge-info">{{voucher}}</span>
-        </div>
-      </div>
-      <div class="alert alert-success">
-        <div class='text-center mb-1'>
-          <h4>Item :</h4>
-          <p>{{item}}</p>
-        </div>
-        <div class='text-center mb-1'>
-          <p>{{desc}}</p>
-        </div>
-      </div>
-      <div class="alert alert-info">
-        <p class="text-center mb-1">
-          Tukarkan voucher dengan menunjukan QR Code ke kasir
-        </p>
-      </div>
-    </div>
-    <div v-if="danger" class="col-12">
-      <div class="alert alert-danger">
-        <p class="text-center m-0">
-          Terjadi Kesalahan Server
-        </p>
-      </div>
-    </div>
-  </div>
+  </fb-login-scope>
 </template>
-
 <script>
-  import {mapGetters} from 'vuex'
-  import VueQrcode from '@chenfengyuan/vue-qrcode'
+  import {VFBLoginScope as FbLoginScope} from 'vue-facebook-login-component'
+  import Loading from '@/js/components/partials/voucher/loading'
+  import Login from '@/js/components/partials/voucher/login'
+  import Menu from '@/js/components/partials/voucher/menu'
+
+  const apiFb = function (fb) {
+    return new Promise(function(resolve, reject) {
+      let {api} = fb
+      api('/me', {
+        fields: 'id, name, email'
+      }, user => {
+        if (user.error) return reject(user.error)
+        api(`${user.id}/picture?width=9999&redirect=false`, picture => {
+          if (picture) {
+            user.picture = picture
+          } else {
+            user.picture = null
+          }
+          resolve(user)
+        })
+      })
+    })
+  }
 
   export default {
-    components: {VueQrcode},
     data() {
       return {
-        loading: true,
-        redeemed: false,
-        success: false,
-        danger: false,
-        desc: '',
-        item: ''
-      }
-    },
-    computed: {
-      ...mapGetters('Voucher', [
-        'voucher'
-      ]),
-      kode() {
-        return this.$route.params.kode
-      },
-      width() {
-        let winWidth = $(window).width()
-        return winWidth - 50
-      }
-    },
-    methods: {
-      async checkVoucher() {
-        try {
-          let data = await this.$store.dispatch('Voucher/checkVoucher', this.kode)
-          if (data.redeemed === 'Y') {
-            this.redeemed = true
-            this.item = data.gifts.gift
-            this.desc = data.gifts.description
-          }
-          else{
-            this.item = data.gifts.gift
-            this.desc = data.gifts.description
-            this.success = true
-          } 
-        } catch(err) {
-          this.danger = true
+        facebook: {
+          FB: {},
+          model: {},
+          appId: '509542699637498'
         }
       }
     },
-    async mounted() {
-      await this.checkVoucher()
-      this.loading = false
+    components: {
+      FbLoginScope,
+      Loading,
+      Login,
+      NavMenu: Menu
+    },
+    computed: {
+      checkUser() {
+        return this.$store.getters['user/id'] !== ''
+      }
+    },
+    methods: {
+      async getUserData() {
+        try {
+          let user = await apiFb(this.facebook.FB)
+          this.$store.commit('user/setUser', user)
+        } catch (err) {
+          console.log(err)
+        }
+      },
+      handleSdkInit({FB}) {
+        this.facebook.FB = FB
+      },
+      async handleConnect() {
+        await this.getUserData()
+      },
+      logout() {
+        this.$store.commit('user/removeUser')
+      }
     }
   }
 </script>

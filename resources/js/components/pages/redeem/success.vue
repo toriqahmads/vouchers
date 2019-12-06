@@ -5,16 +5,16 @@
       <h3 class="text-success text-center">Selamat Voucher Berhasil Digunakan</h3>
       <div class="d-flex flex-wrap justify-content-center mb-1">
         <div class="text-center">
-          <span class="badge badge-info">{{kode}}</span>
+          <span class="badge badge-info">{{queryCode}}</span>
         </div>
       </div>
       <div class="alert alert-success">
         <div class='text-center mb-1'>
           <h4>Item :</h4>
-          <p>{{item}}</p>
+          <p>{{voucher.gifts.gift}}</p>
         </div>
         <div class='text-center mb-1'>
-          <p>{{desc}}</p>
+          <p>{{voucher.gifts.description}}</p>
         </div>
       </div>
     </div>
@@ -22,37 +22,39 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
   export default {
     data() {
       return {
-        loading: true,
-        desc: '',
-        item: ''
+        loading: true
       }
     },
     computed: {
-      kode() {
-        if (_.has( this.$route.query, 'kode')) {
-          if (_.isEmpty(this.$route.query.kode)) return null
-          return this.$route.query.kode
-        }
-        return null
+      ...mapGetters('voucher', {
+        voucher: 'data'
+      }),
+      queryCode() {
+        let query = this.$route.query
+        return (_.isEmpty(query) && _.isEmpty(query.code)) ? null : query.code
       }
     },
     methods: {
-      async checkVoucher() {
+      async checkId() {
         try {
-          let data = await this.$store.dispatch('Voucher/checkVoucher', this.kode)
-          this.item = data.gifts.gift
-          this.desc = data.gifts.description
+          await this.$store.dispatch('voucher/getVoucher', {
+            voucher: this.queryCode
+          })
         } catch(err) {
-          this.danger = true
+          this.$router.push('/redeem')
         }
       }
     },
     async mounted() {
-      await this.checkVoucher()
+      await this.checkId()
       this.loading = false
+    },
+    beforeDestroy() {
+      this.$store.dispatch('voucher/removeData')
     }
   }
 </script>

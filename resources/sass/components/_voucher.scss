@@ -1,0 +1,109 @@
+.voucher-card {
+  border: 0;
+  .card-header {
+    font-weight: $font-weight-bold;
+    padding: 7px 10px;
+    background-color: #5da273;
+    color: white;
+    letter-spacing: -1px;
+    border: 0;
+  }
+  .card-body {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    background-color: #b6dec3;
+    border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
+  }
+  .table {
+    th, td {
+      background-color: #b6dec3;
+      color: #113c1e;
+      border-color: #5da273;
+      vertical-align: middle;
+    }
+  }
+}
+
+.voucher-card-content {
+  width: calc(100% - 130px);
+  padding: 10px;
+}
+
+.voucher-card-img {
+  width: 130px;
+  background-color: #5da273;
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%, 0 50%);
+  height: 150px;
+  border-bottom-right-radius: calc(0.25rem - 1px);
+}
+
+.voucher-card-images {
+  margin-left: 20px;
+  width: calc(100% - 20px);
+  clip-path: polygon(60% 0, 100% 0, 100% 100%, 60% 100%, 0 50%);
+  background-color: black;
+  height: 150px;
+  border-bottom-right-radius: calc(0.25rem - 1px);
+}
+
+.voucher-card-title {
+  font-weight: $font-weight-bold;
+  letter-spacing: -1px;
+  color: #113c1e;
+}
+
+.voucher-card-list {
+  padding-left: 20px;
+  > li {
+    letter-spacing: -1px;
+    color: #113c1e;
+  }
+}
+
+.voucher-code {
+  background-color: #b6dec3;
+  border-radius: calc(0.25rem - 1px);
+  margin-bottom: 70px;
+  padding: 10px;
+}
+
+.voucher-code-title {
+  font-weight: $font-weight-bolder;
+  text-align: center;
+  letter-spacing: -1px;
+  color: #113c1e;
+}
+
+.voucher-code-desc {
+  font-weight: $font-weight-bold;
+}
+
+.voucher-code-small {
+  display: block;
+  font-weight: $font-weight-bold;
+  text-align: center;
+  letter-spacing: -1px;
+}
+
+.voucher-code-prize {
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: -1px;
+}
+
+.voucher-code-canvas {
+  display: flex;
+  justify-content: center;
+  margin-bottom: .5rem;
+}
+
+.voucher-code-info {
+  font: {
+    weight: $font-weight-bold;
+    size: $font-size-sm;
+  }
+  text-align: center;
+  margin-bottom: 0;
+  letter-spacing: -1px;
+}

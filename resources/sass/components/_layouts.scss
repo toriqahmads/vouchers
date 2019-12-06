@@ -1,0 +1,10 @@
+.layouts {
+  position: relative;
+  height: 100vh;
+}
+
+.layouts-container {
+  height: calc(100vh - 70px);
+  overflow: auto;
+  @extend .container-fluid;
+}
